@@ -1,0 +1,24 @@
+DROP TABLE IF EXISTS tasks;
+DROP TABLE IF EXISTS status;
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL
+);
+
+CREATE TABLE status(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(50) UNIQUE NOT NULL
+);
+
+CREATE TABLE tasks(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title VARCHAR(100), -- Исправлено тут
+    description TEXT,
+    status_id INTEGER,
+    user_id INTEGER,
+    FOREIGN KEY (status_id) REFERENCES status (id) ON DELETE SET NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
